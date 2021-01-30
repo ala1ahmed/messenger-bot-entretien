@@ -1,7 +1,9 @@
 const request = require('request');
 
 function handleMessage(sender_psid, received_message) {
-  let response ;
+  let response={
+    received_message
+  };
 
   // Check if the message contains text
   if (received_message.text) {
@@ -37,10 +39,9 @@ function handleMessage(sender_psid, received_message) {
     };
   
   }
-  else {
 
-  }
-
+  // Sends the response message
+  callSendAPI(sender_psid, response);
 }
 
 function callSendAPI(sender_psid, response) {
