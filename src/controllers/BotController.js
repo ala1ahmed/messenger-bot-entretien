@@ -1,4 +1,4 @@
-const request = require('request');
+import request from "request";
 
 function handleMessage(sender_psid, received_message) {
   let response;
