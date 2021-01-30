@@ -1,3 +1,5 @@
+const request = require('request');
+
 function handleMessage(sender_psid, received_message) {
   let response;
 
@@ -25,7 +27,7 @@ function callSendAPI(sender_psid, response) {
   // Send the HTTP request to the Messenger Platform
   request(
     {
-      uri: "https://graph.facebook.com/v2.6/me/messages",
+      uri: "https://graph.facebook.com/v6.0/me/messages",
       qs: { access_token: process.env.FB_TOKEN },
       method: "POST",
       json: request_body,
