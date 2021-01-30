@@ -1,9 +1,7 @@
 const request = require('request');
 
 function handleMessage(sender_psid, received_message) {
-  let response = {
-    received_message
-  };
+  let response ;
 
   // Check if the message contains text
   if (received_message.text) {
