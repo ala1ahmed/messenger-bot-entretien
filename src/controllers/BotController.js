@@ -1,18 +1,48 @@
 const request = require('request');
 
 function handleMessage(sender_psid, received_message) {
-  let response;
+  let response = {
+    received_message
+  };
 
   // Check if the message contains text
   if (received_message.text) {
-    // Create the payload for a basic text message
+    if(received_message.text === "Comment vas-tu ?")
     response = {
-      text: `You sent the message: "${received_message.text}". Now send me an image!`,
+        "attachment": {
+            "type": "template",
+            "payload": {
+              "template_type": "generic",
+              "elements": [{
+                "title": "Très bien et vous ?",
+                "buttons": [
+                  {
+                    "type": "postback",
+                    "title": "je vais bien merci",
+                    "payload": "yes",
+                  },
+                  {
+                    "type": "postback",
+                    "title": "Non, ça ne va pas",
+                    "payload": "no",
+                  }
+                ],
+              }]
+            }
+        }
+    }
+  }
+  else if (received_message.attachments) {
+  
+    response = {
+        text : "Je ne sais pas traiter ce type de demande"
     };
+  
+  }
+  else {
+
   }
 
-  // Sends the response message
-  callSendAPI(sender_psid, response);
 }
 
 function callSendAPI(sender_psid, response) {
