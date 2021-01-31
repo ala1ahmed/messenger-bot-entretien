@@ -1,43 +1,43 @@
-const request = require('request');
+const request = require("request");
 
 function handleMessage(sender_psid, received_message) {
-  let response={
-    received_message
-  };
+  let response;
 
   // Check if the message contains text
   if (received_message.text) {
-    if(received_message.text === "Comment vas-tu ?")
+    received_message.text === "Comment vas-tu ?"
+      ? (response = {
+          attachment: {
+            type: "template",
+            payload: {
+              template_type: "generic",
+              elements: [
+                {
+                  title: "Très bien et vous ?",
+                  buttons: [
+                    {
+                      type: "postback",
+                      title: "je vais bien merci",
+                      payload: "yes",
+                    },
+                    {
+                      type: "postback",
+                      title: "Non, ça ne va pas",
+                      payload: "no",
+                    },
+                  ],
+                },
+              ],
+            },
+          },
+        })
+      : (response = {
+          text: received_message.text,
+        });
+  } else if (received_message.attachments) {
     response = {
-        "attachment": {
-            "type": "template",
-            "payload": {
-              "template_type": "generic",
-              "elements": [{
-                "title": "Très bien et vous ?",
-                "buttons": [
-                  {
-                    "type": "postback",
-                    "title": "je vais bien merci",
-                    "payload": "yes",
-                  },
-                  {
-                    "type": "postback",
-                    "title": "Non, ça ne va pas",
-                    "payload": "no",
-                  }
-                ],
-              }]
-            }
-        }
-    }
-  }
-  else if (received_message.attachments) {
-  
-    response = {
-        text : "Je ne sais pas traiter ce type de demande"
+      text: "Je ne sais pas traiter ce type de demande",
     };
-  
   }
 
   // Sends the response message
@@ -71,7 +71,7 @@ function callSendAPI(sender_psid, response) {
   );
 }
 
-module.exports ={
-    callSendAPI,
-    handleMessage
-}
+module.exports = {
+  callSendAPI,
+  handleMessage,
+};
